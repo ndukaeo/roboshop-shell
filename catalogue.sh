@@ -12,6 +12,6 @@ cd /app
 npm install
 systemctl daemon-reload
 systemctl enable catalogue
-systemctl start catalogue
+systemctl restart catalogue
 dnf install mongodb-mongosh -y
 mongosh --host mongodb.dev.baneciollc.com </app/db/master-data.js
