@@ -1,5 +1,8 @@
+#source the function
 source common.sh
+#assign the variable
 component=catalogue
+#call the function
 NODEJS
 
 cp mongo.repo /etc/yum.repos.d/mongo.repo
