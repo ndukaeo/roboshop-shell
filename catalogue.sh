@@ -6,9 +6,12 @@ component=catalogue
 NODEJS
 
 cp mongo.repo /etc/yum.repos.d/mongo.repo
-dnf install mongodb-mongosh -y
-mongosh --host mongodb.dev.baneciollc.com </app/db/master-data.js
 
+echo Install MongoDB Client
+dnf install mongodb-mongosh -y &>>$LOG_FILE
+
+echo Load Master Data
+mongosh --host mongo.dev.rdevopsb80.online </app/db/master-data.js &>>$LOG_FILE
 
 
 #cp catalogue.service /etc/systemd/system/catalogue.service
