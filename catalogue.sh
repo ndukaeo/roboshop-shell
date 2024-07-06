@@ -1,8 +1,6 @@
-#source the function
 source common.sh
-#assign the variable
 component=catalogue
-#call the function
+app_path=/app
 NODEJS
 
 #cp mongo.repo /etc/yum.repos.d/mongo.repo
