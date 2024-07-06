@@ -16,7 +16,7 @@ else
 fi
 
 echo Load Master Data
-mongosh --host mongo.dev.rdevopsb80.online </app/db/master-data.js &>>$LOG_FILE
+mongosh --host localhost </app/db/master-data.js &>>$LOG_FILE
 if [$? -eq 0]; then
   echo SUCCESS
 else

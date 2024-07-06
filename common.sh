@@ -61,7 +61,7 @@ else
     echo FAILURE
 fi
 
-  PRINT COpy MongoDB repo file
+  PRINT Copy MongoDB repo file
   cp mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
 if [ $? -eq 0 ]; then
   echo SUCCESS
