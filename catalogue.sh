@@ -9,10 +9,11 @@ cp mongo.repo /etc/yum.repos.d/mongo.repo
 
 echo Install MongoDB Client
 dnf install mongodb-mongosh -y &>>$LOG_FILE
+echo $?
 
 echo Load Master Data
 mongosh --host mongo.dev.rdevopsb80.online </app/db/master-data.js &>>$LOG_FILE
-
+echo $?
 
 #cp catalogue.service /etc/systemd/system/catalogue.service
 
