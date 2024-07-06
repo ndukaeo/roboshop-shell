@@ -5,7 +5,7 @@ component=catalogue
 #call the function
 NODEJS
 
-cp mongo.repo /etc/yum.repos.d/mongo.repo
+#cp mongo.repo /etc/yum.repos.d/mongo.repo
 
 echo Install MongoDB Client
 dnf install mongodb-mongosh -y &>>$LOG_FILE
