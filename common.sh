@@ -36,7 +36,6 @@ STAT () {
   fi
 }
 
-
 NODEJS() {
   PRINT Disable NodeJS Default Version
   dnf module disable nodejs -y &>>$LOG_FILE
