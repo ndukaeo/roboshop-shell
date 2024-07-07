@@ -10,7 +10,7 @@ source common.sh
 component=mongo
 
 PRINT copy mongodb repo file
-cp mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
+cp ${code_dir}/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
 STAT $?
 
 PRINT install mongodb
