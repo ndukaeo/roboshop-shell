@@ -20,7 +20,7 @@
 
 LOG_FILE=/tmp/roboshop.log
 rm -f $LOG_FILE
-
+code_dir=$(pwd)
 
 PRINT() {
   echo &>>$LOG_FILE
@@ -41,6 +41,14 @@ STAT () {
 }
 
 APP_PREREQ () {
+
+  PRINT Adding Application User
+  id roboshop &>>$LOG_FILE
+  if [ $? -ne 0 ]; then
+  useradd roboshop &>>$LOG_FILE
+  fi
+  STAT $?
+
   PRINT remove Old Content
   rm -rf ${app_path} &>>$LOG_FILE
   STAT $?
@@ -59,6 +67,21 @@ APP_PREREQ () {
   STAT $?
 }
 
+SYSTEMD_SETUP (){
+    PRINT Copy Service file
+    cp ${code_dir}/${component}.service /etc/systemd/system/${component}.service &>>$LOG_FILE
+    STAT $?
+
+    PRINT Start Service
+    systemctl daemon-reload &>>$LOG_FILE
+    systemctl enable ${component} &>>$LOG_FILE
+    systemctl restart ${component} &>>$LOG_FILE
+    STAT $?
+}
+
+
+
+
 NODEJS() {
   PRINT Disable NodeJS Default Version
   dnf module disable nodejs -y &>>$LOG_FILE
@@ -72,34 +95,66 @@ NODEJS() {
   dnf install nodejs -y &>>$LOG_FILE
   STAT $?
 
-  PRINT Copy Service file
-  cp ${component}.service /etc/systemd/system/${component}.service &>>$LOG_FILE
-  STAT $?
-
-  PRINT Copy MongoDB repo file
-  cp mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
-  STAT $?
-
-  PRINT Adding Application User
-  id roboshop &>>$LOG_FILE
-  if [ $? -ne 0 ]; then
-  useradd roboshop &>>$LOG_FILE
-  fi
-  STAT $?
-
 APP_PREREQ
 
   PRINT Download NodeJS Dependencies
   npm install &>>$LOG_FILE
   STAT $?
 
-  PRINT Start Service
-  systemctl daemon-reload &>>$LOG_FILE
-  systemctl enable ${component} &>>$LOG_FILE
-  systemctl restart ${component} &>>$LOG_FILE
-  STAT $?
+SCHEMA_SETUP
+
+SYSTEMD_SETUP
+
 
 }
 
+JAVA () {
+  PRINT install maven and java
+  dnf install maven -y &>>$LOG_FILE
+  STAT $?
 
+  APP_PREREQ
 
+  PRINT Download dependencies
+  mvn clean package &>>$LOG_FILE
+  mv target/shipping-1.0.jar shipping.jar &>>$LOG_FILE
+  STAT $?
+
+SCHEMA_SETUP
+
+SYSTEMD_SETUP
+
+}
+
+SCHEMA_SETUP(){
+  if  [ "$schema_setup" == "mongo" ]; then
+  PRINT Copy MongoDB repo file
+  cp mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
+  STAT $?
+
+  PRINT Install MongoDB Client
+  dnf install mongodb-mongosh -y &>>$LOG_FILE
+  STAT $?
+
+  PRINT Load Master Data
+  mongosh --host localhost </app/db/master-data.js &>>$LOG_FILE
+  STAT $?
+
+if  [ "$schema_setup" == "MYSQL" ]; then
+    PRINT Install mysql Client
+    dnf install mysql -y &>>$LOG_FILE
+    STAT $?
+
+    PRINT Load schema
+    mysql -h mysql.dev.baneciollc.com -uroot -pRoboShop@1 < /app/db/schema.sql &>>$LOG_FILE
+    STAT $?
+
+    PRINT Load master data
+    mysql -h mysql.dev.baneciollc.com -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$LOG_FILE
+    STAT $?
+
+    PRINT Create app users
+    mysql -h mysql.dev.baneciollc.com -uroot -pRoboShop@1 < /app/db/app-user.sql &>>$LOG_FILE
+    STAT $?
+
+}

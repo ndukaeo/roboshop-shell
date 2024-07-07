@@ -1,17 +1,19 @@
 source common.sh
 component=catalogue
 app_path=/app
+schema_setup=mongo
+
 NODEJS
 
 #cp mongo.repo /etc/yum.repos.d/mongo.repo
 
-echo Install MongoDB Client
-dnf install mongodb-mongosh -y &>>$LOG_FILE
-STAT $?
-
-echo Load Master Data
-mongosh --host localhost </app/db/master-data.js &>>$LOG_FILE
-STAT $?
+#PRINT Install MongoDB Client
+#dnf install mongodb-mongosh -y &>>$LOG_FILE
+#STAT $?
+#
+#PRINT Load Master Data
+#mongosh --host localhost </app/db/master-data.js &>>$LOG_FILE
+#STAT $?
 
 #cp catalogue.service /etc/systemd/system/catalogue.service
 
