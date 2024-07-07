@@ -115,7 +115,7 @@ JAVA () {
 
   APP_PREREQ
 
-  PRINT Download dependencies
+  PRINT Download java dependencies
   mvn clean package &>>$LOG_FILE
   mv target/shipping-1.0.jar shipping.jar &>>$LOG_FILE
   STAT $?
@@ -167,10 +167,27 @@ PYTHON () {
 
   APP_PREREQ
 
-  PRINT Download dependencies/requirements
+  PRINT Download python dependencies/requirements
   pip3 install -r requirements.txt &>>$LOG_FILE
   STAT $?
 
  SYSTEMD_SETUP
+
+}
+
+GOLANG () {
+  PRINT install golang
+  dnf install golang -y &>>$LOG_FILE
+  STAT $?
+
+  APP_PREREQ
+
+  PRINT  golang build
+  go mod init dispatch &>>$LOG_FILE
+  go get &>>$LOG_FILE
+  go build &>>$LOG_FILE
+  STAT $?
+
+  SYSTEMD_SETUP
 
 }
