@@ -58,7 +58,7 @@ APP_PREREQ () {
   STAT $?
 
   PRINT Download App Content
-  curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}-v3.zip &>>$LOG_FILE
+  curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}-v3.zip &>>$LOG_FILE
   STAT $?
 
   PRINT Extract App Content
