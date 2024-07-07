@@ -148,7 +148,7 @@ if  [ "$schema_setup" == "mongo" ]; then
   STAT $?
 fi
 
-if  [ "$schema_setup" == "MYSQL" ]; then
+if  [ "$schema_setup" == "mysql" ]; then
   PRINT Install mysql Client
   dnf install mysql -y &>>$LOG_FILE
   STAT $?
