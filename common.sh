@@ -183,6 +183,7 @@ GOLANG () {
   APP_PREREQ
 
   PRINT  golang build
+  cd ${app_path}
   go mod init dispatch &>>$LOG_FILE
   go get &>>$LOG_FILE
   go build &>>$LOG_FILE
