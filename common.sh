@@ -133,7 +133,7 @@ SCHEMA_SETUP(){
 if  [ "$schema_setup" == "mongo" ]; then
   PRINT Copy MongoDB repo file
   cp mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
-#  STAT $?
+  STAT $?
 
   PRINT Install MongoDB Client
   dnf install mongodb-mongosh -y &>>$LOG_FILE
