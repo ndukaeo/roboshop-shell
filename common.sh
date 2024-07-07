@@ -58,11 +58,15 @@ APP_PREREQ () {
   STAT $?
 
   PRINT Download App Content
+  if [ "${component}" == "dispatch" ]; then
+  curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>$LOG_FILE
+  else
   curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}-v3.zip &>>$LOG_FILE
+  fi
   STAT $?
 
   PRINT Extract App Content
-#  cd ${app_path}
+  cd ${app_path}
   unzip /tmp/${component}.zip &>>$LOG_FILE
   STAT $?
 }
