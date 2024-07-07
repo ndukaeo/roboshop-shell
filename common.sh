@@ -83,8 +83,6 @@ SYSTEMD_SETUP (){
 
 
 NODEJS() {
-  SCHEMA_SETUP
-
   PRINT Disable NodeJS Default Version
   dnf module disable nodejs -y &>>$LOG_FILE
   STAT $?
@@ -106,7 +104,7 @@ APP_PREREQ
   STAT $?
 
 
-
+  SCHEMA_SETUP
 
 SYSTEMD_SETUP
 
@@ -142,7 +140,7 @@ if  [ "$schema_setup" == "mongo" ]; then
   STAT $?
 
   PRINT Load Master Data
-  mongosh --host mongo.dev.banecio-devops.online </app/db/master-data.js &>>$LOG_FILE
+  mongosh --host mongodb.dev.banecio-devops.online </app/db/master-data.js &>>$LOG_FILE
   STAT $?
 fi
 
