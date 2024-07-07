@@ -127,7 +127,7 @@ SYSTEMD_SETUP
 }
 
 SCHEMA_SETUP(){
-  if  [ "$schema_setup" == "mongo" ]; then
+if  [ "$schema_setup" == "mongo" ]; then
   PRINT Copy MongoDB repo file
   cp mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
   STAT $?
@@ -139,22 +139,23 @@ SCHEMA_SETUP(){
   PRINT Load Master Data
   mongosh --host localhost </app/db/master-data.js &>>$LOG_FILE
   STAT $?
+fi
 
 if  [ "$schema_setup" == "MYSQL" ]; then
-    PRINT Install mysql Client
-    dnf install mysql -y &>>$LOG_FILE
-    STAT $?
+  PRINT Install mysql Client
+  dnf install mysql -y &>>$LOG_FILE
+  STAT $?
 
-    PRINT Load schema
-    mysql -h mysql.dev.baneciollc.com -uroot -pRoboShop@1 < /app/db/schema.sql &>>$LOG_FILE
-    STAT $?
+  PRINT Load schema
+  mysql -h mysql.dev.baneciollc.com -uroot -pRoboShop@1 < /app/db/schema.sql &>>$LOG_FILE
+  STAT $?
 
-    PRINT Load master data
-    mysql -h mysql.dev.baneciollc.com -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$LOG_FILE
-    STAT $?
+  PRINT Load master data
+  mysql -h mysql.dev.baneciollc.com -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$LOG_FILE
+  STAT $?
 
-    PRINT Create app users
-    mysql -h mysql.dev.baneciollc.com -uroot -pRoboShop@1 < /app/db/app-user.sql &>>$LOG_FILE
-    STAT $?
-
+  PRINT Create app users
+  mysql -h mysql.dev.baneciollc.com -uroot -pRoboShop@1 < /app/db/app-user.sql &>>$LOG_FILE
+  STAT $?
+fi
 }
