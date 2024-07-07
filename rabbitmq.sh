@@ -2,7 +2,7 @@ source common.sh
 component=rabbitmq
 
 
-PTINT Copy repo
+PRINT Copy repo
 cp rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
 STAT $?
 
