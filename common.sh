@@ -104,7 +104,7 @@ APP_PREREQ
   STAT $?
 
 
-  SCHEMA_SETUP
+SCHEMA_SETUP
 
 SYSTEMD_SETUP
 
@@ -132,7 +132,7 @@ SYSTEMD_SETUP
 SCHEMA_SETUP(){
 if  [ "$schema_setup" == "mongo" ]; then
   PRINT Copy MongoDB repo file
-  cp mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
+  cp /home/ec2-user/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
   STAT $?
 
   PRINT Install MongoDB Client
