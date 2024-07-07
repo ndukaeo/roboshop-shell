@@ -62,7 +62,7 @@ APP_PREREQ () {
   STAT $?
 
   PRINT Extract App Content
-  cd ${app_path}
+#  cd ${app_path}
   unzip /tmp/${component}.zip &>>$LOG_FILE
   STAT $?
 }
