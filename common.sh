@@ -83,6 +83,8 @@ SYSTEMD_SETUP (){
 
 
 NODEJS() {
+  SCHEMA_SETUP
+
   PRINT Disable NodeJS Default Version
   dnf module disable nodejs -y &>>$LOG_FILE
   STAT $?
@@ -104,7 +106,7 @@ APP_PREREQ
   STAT $?
 
 
-SCHEMA_SETUP
+
 
 SYSTEMD_SETUP
 
@@ -132,7 +134,7 @@ SYSTEMD_SETUP
 SCHEMA_SETUP(){
 if  [ "$schema_setup" == "mongo" ]; then
   PRINT Copy MongoDB repo file
-  cp /mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
+  cp mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOG_FILE
   STAT $?
 
   PRINT Install MongoDB Client
