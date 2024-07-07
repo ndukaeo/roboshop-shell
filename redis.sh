@@ -28,7 +28,7 @@ PRINT update redis config
 sed -i -e '/^bind/ s/127.0.0.1/0.0.0.0/' -e '/protected-mode/ c protected-mode no' /etc/redis/redis.conf &>>$LOG_FILE
 STAT $?
 
-PRINT redis service
+PRINT restart redis service
 systemctl enable redis &>>$LOG_FILE
 systemctl restart redis &>>$LOG_FILE
 STAT $?
