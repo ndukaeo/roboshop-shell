@@ -153,12 +153,13 @@ if  [ "$schema_setup" == "mysql" ]; then
   dnf install mysql -y &>>$LOG_FILE
   STAT $?
 
-  PRINT Load file
+
   for $file in schema master-data app-user; do
+  PRINT Load file $file.sql
   mysql -h mysql.dev.banecio-devops.online -uroot -pRoboShop@1 < /app/db/$file.sql &>>$LOG_FILE
-  sleep 1
-  done
   STAT $?
+  done
+
 
 #  PRINT Load master data
 #  mysql -h mysql.dev.banecio-devops.online -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$LOG_FILE
