@@ -154,7 +154,7 @@ if  [ "$schema_setup" == "mysql" ]; then
   STAT $?
 
 
-  for $file in schema master-data app-user; do
+  for file in schema master-data app-user; do
   PRINT Load file $file.sql
   mysql -h mysql.dev.banecio-devops.online -uroot -pRoboShop@1 < /app/db/$file.sql &>>$LOG_FILE
   STAT $?
