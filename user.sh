@@ -1,5 +1,5 @@
 #source common.sh
-#cp user.service /etc/systemd/system/user.service
+#cp cart.service /etc/systemd/system/cart.service
 #NODEJS
 #useradd roboshop
 #rm -rf /app
