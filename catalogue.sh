@@ -7,7 +7,7 @@ NODEJS
 
 
 
-#cp mongo.repo /etc/yum.repos.d/mongo.repo
+#cp rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
 #dnf module disable nodejs -y
 #dnf module enable nodejs:20 -y
 #dnf install nodejs -y

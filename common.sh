@@ -3,7 +3,7 @@
 #  dnf module enable nodejs:20 -y
 #  dnf install nodejs -y
 #  cp ${component}.service /etc/systemd/system/${component}.service
-##  cp mongo.repo /etc/yum.repos.d/mongo.repo
+##  cp rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
 #  useradd roboshop
 #  rm -rf /app
 #  mkdir /app
